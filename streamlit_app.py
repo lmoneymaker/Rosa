@@ -1,53 +1,56 @@
 import streamlit as st
-# I've commented out the OpenAI import since we are not using it.
-# from openai import OpenAI
 
-# --- Start of New Code Block ---
-# This is our stand-in for the real AI model.
+# Function to load and inject CSS remains the same
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Load the CSS
+local_css("style.css")
+
+# Placeholder function remains the same
 def get_rosa_response_placeholder(prompt: str) -> str:
     """
-    Takes a user prompt, prints it for debugging, and returns a
-    fixed, hard-coded response.
+    Takes a user prompt and returns a fixed, hard-coded response.
     """
-    print(f"Placeholder received prompt: '{prompt}'") # Useful for checking your work in the terminal
-    
-    # This is the hard-coded response that will be displayed in the chat UI
+    print(f"Placeholder received prompt: '{prompt}'")
     return "This is a placeholder response from Rosa. The real model is still training."
-# --- End of New Code Block ---
 
-
-# Show title and description.
-
-st.markdown("<h1 style='text-align: center; font-family: Futura, sans-serif; font-weight: 500; font-size: 48px;'>Rosa</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>This is a simulator for social workers in training to practice conversations with Rosa, a client in crisis.</p>", unsafe_allow_html=True)
-
-# --- I have removed the section that asks for the OpenAI API Key ---
-
-
-# Create a session state variable to store the chat messages. This ensures that the
-# messages persist across reruns.
-if "messages" not in st.session_state:
+# --- New Feature: Sidebar with a button to clear the chat ---
+if st.sidebar.button("Start New Session"):
     st.session_state.messages = []
 
-# Display the existing chat messages via `st.chat_message`.
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# --- Start of New Layout Structure ---
+# The main container will hold the title, subtext, and chat history
+with st.container():
+    # We apply our custom CSS class to this container
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-# Create a chat input field to allow the user to enter a message. This will display
-# automatically at the bottom of the page.
+    # All UI elements that should be centered go inside this container
+    st.markdown("<h1>ROSA</h1>", unsafe_allow_html=True)
+    st.markdown("<p>This is a simulator to practice conversations with Rosa, a client in crisis.</p>", unsafe_allow_html=True)
+
+    # Initialize and display chat history
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    # We close the custom CSS div tag here
+    st.markdown('</div>', unsafe_allow_html=True)
+# --- End of New Layout Structure ---
+
+
+# The chat input is placed OUTSIDE the main container to appear below it
 if prompt := st.chat_input("What do you want to say to Rosa?"):
-
-    # Store and display the current prompt.
+    # Store and display the current prompt
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    # --- I have replaced the OpenAI API call with our placeholder function ---
-    # Generate a response using the placeholder function.
-    with st.chat_message("assistant"):
-        response = get_rosa_response_placeholder(prompt)
-        st.markdown(response) # Use st.markdown to display the simple text response
     
-    # Store the placeholder's response in session state.
+    # Get and store the placeholder's response
+    response = get_rosa_response_placeholder(prompt)
     st.session_state.messages.append({"role": "assistant", "content": response})
+    
+    # Rerun the app to display the new messages immediately
+    st.rerun()

@@ -1,0 +1,30 @@
+/* style.css */
+
+/* This rule targets the main title (h1) */
+h1 {
+    font-family: Futura, sans-serif;
+    font-weight: 500; /* This is 'Medium' weight */
+    text-align: center !important;
+    font-size: 70px;
+}
+
+/* This rule targets the subtext paragraph (p) */
+p {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* This rule targets the main container we created in Python */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* This vertically centers the content */
+    align-items: center;
+    min-height: 80vh; /* Sets the container height to 80% of the viewport height */
+}
+
+/* This targets Streamlit's default chat input container */
+/* We are "unsticking" it from the bottom of the page */
+.stChatInputContainer {
+    position: relative;
+}
