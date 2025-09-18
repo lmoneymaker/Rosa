@@ -28,7 +28,7 @@ with st.container():
 
     # All UI elements that should be centered go inside this container
     st.markdown("<h1>ROSA</h1>", unsafe_allow_html=True)
-    st.markdown("<p>This is a simulator to practice conversations with Rosa, a client in crisis.</p>", unsafe_allow_html=True)
+    st.markdown("<p>This is a simulator for social workers to practice conversations with Rosa, a virtual client in crisis.</p>", unsafe_allow_html=True)
 
     # Initialize and display chat history
     if "messages" not in st.session_state:

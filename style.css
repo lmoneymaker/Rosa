@@ -23,8 +23,8 @@ p {
     height: 100vh; /* Make the container take up the full screen height */
 }
 
-/* This targets Streamlit's default chat input container */
-/* We are "unsticking" it from the bottom of the page */
+/* This rule is crucial - it unsticks the chat input from the bottom */
 .stChatInputContainer {
-    position: relative;
+    position: relative !important;
+    bottom: auto !important; /* Resets the bottom position */
 }
