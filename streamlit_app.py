@@ -17,10 +17,9 @@ def get_rosa_response_placeholder(prompt: str) -> str:
 
 
 # Show title and description.
-st.title("💬 Rosa - Crisis Response Simulator")
-st.write(
-    "This is a simulator to practice conversations with Rosa, a client in crisis."
-)
+
+st.markdown("<h1 style='text-align: center; font-family: Futura, sans-serif; font-weight: 500; font-size: 48px;'>Rosa</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>This is a simulator for social workers in training to practice conversations with Rosa, a client in crisis.</p>", unsafe_allow_html=True)
 
 # --- I have removed the section that asks for the OpenAI API Key ---
 
