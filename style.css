@@ -15,12 +15,12 @@ p {
 }
 
 /* This rule targets the main container we created in Python */
-.main-container {
+.st-emotion-cache-1y4p8pa {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* This vertically centers the content */
+    justify-content: center; /* This will now work as expected */
     align-items: center;
-    min-height: 80vh; /* Sets the container height to 80% of the viewport height */
+    height: 100vh; /* Make the container take up the full screen height */
 }
 
 /* This targets Streamlit's default chat input container */
