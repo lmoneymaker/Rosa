@@ -1,9 +1,26 @@
 import streamlit as st
+import vertexai
+from vertexai.generative_models import GenerativeModel
+from google.oauth2 import service_account
 
-# Function to load and inject CSS remains the same
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# --- Configuration ---
+# !!! REPLACE WITH YOUR VALUES !!!
+PROJECT_ID = "Rosa"
+LOCATION = "us-central1"
+MODEL_ID = 2843925308149596160 # Paste the ID you copied from Vertex AI
+KEY_FILE_PATH = "complete-will-472500-j3-fd7559f7c69e.json" # The name of your service account key file
+# ---------------------
+
+# --- Authentication and Model Loading ---
+# This part connects to Google Cloud and loads your specific model
+try:
+    credentials = service_account.Credentials.from_service_account_file(KEY_FILE_PATH)
+    vertexai.init(project=PROJECT_ID, location=LOCATION, credentials=credentials)
+    tuned_model = GenerativeModel(MODEL_ID)
+except Exception as e:
+    st.error(f"Error initializing Vertex AI. Please check your configuration and key file. Details: {e}")
+    st.stop()
+# ----------------------------------------
 
 # Load the CSS
 local_css("style.css")
